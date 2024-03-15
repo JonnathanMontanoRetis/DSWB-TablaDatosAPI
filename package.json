@@ -1,0 +1,53 @@
+{
+  "name": "flexy-angular",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --proxy-config proxy.config.json",
+    "start-u": "ng serve --proxy-config proxy.config.u.json",
+    "build": "ng build --proxy-config proxy.config.json",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^15.2.10",
+    "@angular/cdk": "^15.2.9",
+    "@angular/common": "^15.2.10",
+    "@angular/compiler": "^15.2.10",
+    "@angular/core": "^15.2.10",
+    "@angular/flex-layout": "^15.0.0-beta.42",
+    "@angular/forms": "^15.2.10",
+    "@angular/material": "^15.2.9",
+    "@angular/platform-browser": "^15.2.10",
+    "@angular/platform-browser-dynamic": "^15.2.10",
+    "@angular/router": "^15.2.10",
+    "@capacitor/android": "^5.5.1",
+    "@capacitor/angular": "^2.0.3",
+    "@capacitor/core": "^5.5.1",
+    "@ionic/angular": "^7.5.7",
+    "@reactivex/rxjs": "^6.6.7",
+    "angular-feather": "^6.3.0",
+    "apexcharts": "^3.35.3",
+    "ng-apexcharts": "^1.7.1",
+    "ngx-cookie-service": "^17.0.0",
+    "rxjs": "~7.5.5",
+    "tslib": "^2.4.0",
+    "typescript": ">=4.6.2 <4.9",
+    "zone.js": "~0.11.6"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^15.2.10",
+    "@angular/cli": "^15.2.10",
+    "@angular/compiler-cli": "^15.2.10",
+    "@capacitor/cli": "^5.5.1",
+    "@types/jasmine": "~4.0.3",
+    "@types/node": "^18.0.0",
+    "jasmine-core": "~4.2.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.1",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0"
+  }
+}

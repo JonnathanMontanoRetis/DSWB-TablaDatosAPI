@@ -1,0 +1,145 @@
+<!-- form to create a ousuarios -->
+<mat-card id="frmCrearUsuario" class="w-100 overview hide-form">
+    <mat-card-content>
+  
+      <h4 class="mb-56">{{ formTitulo }}</h4>
+  
+      <form [formGroup]="formCrearUsuario">
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Identificación</mat-label>
+          <input matInput type="text" formControlName="id_user" placeholder="Ingresa el numero de identificación del usuario" />
+        </mat-form-field>
+  
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <input matInput type="text" formControlName="descripcion_user" placeholder="Alumno / Docente" />
+        </mat-form-field>
+  
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput type="text" formControlName="nombre" placeholder="Ingresa el nombre del usuario" />
+        </mat-form-field>
+  
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Apellido</mat-label>
+          <input matInput type="text" formControlName="apellido" placeholder="Ingresa el apellido del usuario" />
+        </mat-form-field>
+  
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput type="text" formControlName="correo" placeholder="Ingresa el e-mail del usuario" />
+        </mat-form-field>
+  
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Teléfono</mat-label>
+          <input matInput type="number" formControlName="telefono" placeholder="Ingresa el Teléfono del usuario" />
+        </mat-form-field>
+        
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Dirección</mat-label>
+          <input matInput type="text" formControlName="direccion" placeholder="Ingresa la dirección del usuario" />
+        </mat-form-field>
+        
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Curso o Area</mat-label>
+          <input matInput type="text" formControlName="curso" placeholder="Ingresa el curso o area a la que pertenece el usuario" />
+        </mat-form-field>
+  
+        <div>
+          <input type="hidden" formControlName="id_admin"/>
+        </div>
+      
+        <div class="parent">
+          <div class="div1">
+            <button mat-raised-button class="me-8 mb-8 btnAgregar" id="btnAgregar" color="primary" (click)="crearUsuario()">Ingresar</button>
+            <button mat-raised-button class="me-8 mb-8 btnEditar" id="btnEditar" color="primary" (click)="editarUsuario()">Editar</button>
+          </div>
+          <div class="div2">
+            <button mat-raised-button class="me-8 mb-8" color="warn" (click)="hideForm()">Cancelar</button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card class="w-100 overview">
+    <mat-card-content>
+      <h4 class="mb-56">Usuarios Registrados</h4>
+  
+      <div class="m-b-20">
+        <button mat-raised-button class="me-8 mb-8" (click)="showForm()">Ingresar usuario</button>
+      </div>
+  
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" class="text-nowrap w-100 dark-table">
+
+          <ng-container matColumnDef="id_user">
+            <th mat-header-cell *matHeaderCellDef> Identificación </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.id_user}} </td>
+          </ng-container>   
+          
+          <ng-container matColumnDef="descripcion_user">
+            <th mat-header-cell *matHeaderCellDef> Alumno / Docente </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.descripcion_user}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.nombre}} </td>
+          </ng-container>
+          <ng-container matColumnDef="apellido">
+            <th mat-header-cell *matHeaderCellDef> Apellido</th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.apellido}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef> Teléfono</th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.telefono}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="curso">
+            <th mat-header-cell *matHeaderCellDef> Curso O Area</th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.curso}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef> Editar </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> 
+              <button (click)="cargarFormularioUsuario(element, true)"> Editar </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> 
+              <button (click)="cargarFormularioUsuario(element, false)"> Eliminar </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <h2>Eliminar Usuario</h2>
+    <p>¿Desea eliminar el usuario '<b>{{ nameUser }}</b>'?</p>
+    <div class="container">
+      <div class="okButton">
+        <button mat-raised-button class="me-8 mb-8" color="primary" (click)="eliminarUsuario()">Aceptar</button>
+      </div>
+      <div class="cancelButton">
+        <button mat-raised-button class="me-8 mb-8" color="warn" (click)="closeDialog()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+</div>

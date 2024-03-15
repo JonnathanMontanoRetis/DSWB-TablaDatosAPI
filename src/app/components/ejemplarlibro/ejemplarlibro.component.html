@@ -1,0 +1,97 @@
+<!-- form to create a ejemplar-libro -->
+<mat-card id="frmCrearEjemplarLibro" class="w-100 overview hide-form">
+    <mat-card-content>
+  
+      <h4 class="mb-56"> {{ tituloFormulario }} </h4>
+  
+      <form [formGroup]="formCrearEjemplarLibro">
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Código ejemplar</mat-label>
+          <input matInput type="text" formControlName="id_ejemplar" placeholder="Ingresa el id del ejemplar" />
+        </mat-form-field>
+  
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Código inventario</mat-label>
+          <input matInput type="text" formControlName="cod_inv" placeholder="Ingresa el código del inventario" />
+        </mat-form-field>
+  
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Numero</mat-label>
+          <input matInput type="text" formControlName="numero" placeholder="Ingresa el numero del ejemplar del libro" />
+        </mat-form-field>
+  
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Estatus</mat-label>
+          <input matInput type="text" formControlName="estatus" placeholder="Disponible / Préstamo" />
+        </mat-form-field>
+  
+        <div>
+          <input type="hidden" formControlName="fecha_creacion"/>
+        </div>
+        <div>
+          <input type="hidden" formControlName="id_admin"/>
+        </div>
+  
+        <div class="parent">
+          <div class="div1">
+            <button mat-raised-button class="me-8 mb-8 btnAgregar" id="btnAgregar" color="primary" (click)="crearEjemplarLibro()">Ingresar</button>
+            <button mat-raised-button class="me-8 mb-8 btnEditar" id="btnEditar" color="primary" (click)="editarEjemplarLibro()">Editar</button>
+          </div>
+          <div class="div2">
+            <button mat-raised-button class="me-8 mb-8" color="warn" (click)="hideForm()">Cancelar</button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+</mat-card>
+  
+  <!--TABLA DE EJEMPLAR-LIBROS -->
+  <mat-card class="w-100 overview">
+    <mat-card-content>
+      <h4 class="mb-56">Inventario</h4>
+  
+      <div class="m-b-20">
+        <button mat-raised-button class="me-8 mb-8" (click)="showForm()">Ingresar ejemplar libro</button>
+      </div>
+  
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" id="table-to-paging" class="text-nowrap w-100 dark-table display">
+  
+          <!-- Id Column -->
+          <ng-container matColumnDef="id_ejemplar">
+            <th mat-header-cell *matHeaderCellDef> Código ejemplar  </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.id_ejemplar}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="cod_inv">
+            <th mat-header-cell *matHeaderCellDef> Código inventario </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.cod_inv}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="numero">
+            <th mat-header-cell *matHeaderCellDef> Numero </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.numero}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="estatus">
+            <th mat-header-cell *matHeaderCellDef> Estatus </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.estatus}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef> Editar </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> 
+              <button mat-icon-button color="primary" (click)="cargarFormularioEjemplarLibro(element)">
+                <mat-icon fontIcon="edit">Editar</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>

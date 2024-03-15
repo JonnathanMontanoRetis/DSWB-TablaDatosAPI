@@ -1,0 +1,154 @@
+<!-- form to create a libro -->
+<mat-card id="frmCrearLibro" class="w-100 overview hide-form">
+  <mat-card-content>
+
+    <h4 class="mb-56"> {{ tituloFormulario }} </h4>
+
+    <form [formGroup]="formCrearLibro">
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Código inventario</mat-label>
+        <input matInput type="text" formControlName="cod_inv" placeholder="Ingresa el código de inventario" />
+      </mat-form-field>
+
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>ISBN</mat-label>
+        <input matInput type="text" formControlName="isbn" placeholder="Ingresa el ISBN" />
+      </mat-form-field>
+
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Título</mat-label>
+        <input matInput type="text" formControlName="titulo" placeholder="Ingresa el título del libro" />
+      </mat-form-field>
+
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Editorial</mat-label>
+        <input matInput type="text" formControlName="editorial" placeholder="Ingresa la editorial del libro" />
+      </mat-form-field>
+
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Año Edición</mat-label>
+        <input matInput type="text" formControlName="ano_edicion" placeholder="Ingresa el año de edición del libro" />
+      </mat-form-field>
+
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Materia</mat-label>
+        <input matInput type="text" formControlName="materia" placeholder="Ingresa la materia del libro" />
+      </mat-form-field>
+      
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Dewey</mat-label>
+        <input matInput type="text" formControlName="dewey" ubicación="Ingresa el Dewey del libro" />
+      </mat-form-field>
+      
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Adquisición</mat-label>
+        <input matInput type="text" formControlName="adquisicion" placeholder="Compra / Donación" />
+      </mat-form-field>
+
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Ubicación</mat-label>
+        <input matInput type="text" formControlName="ubicacion" placeholder="Ingresa la ubicación libro" />
+      </mat-form-field>
+
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>precio</mat-label>
+        <input matInput type="text" formControlName="precio" placeholder="Ingresa el valor libro" />
+      </mat-form-field>
+
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Ciudad</mat-label>
+        <input matInput type="text" formControlName="ciudad" placeholder="Ingresa la ciudad de origen del libro" />
+      </mat-form-field>
+
+      <div>
+        <input type="hidden" formControlName="id_admin"/>
+      </div>
+      
+      <div>
+        <input type="hidden" formControlName="fecha_creacion"/>
+      </div>
+      
+
+      <div class="parent">
+        <div class="div1">
+          <button mat-raised-button class="me-8 mb-8 btnAgregar" id="btnAgregar" color="primary" (click)="crearLibro()">Ingresar</button>
+          <button mat-raised-button class="me-8 mb-8 btnEditar" id="btnEditar" color="primary" (click)="editarLibro()">Editar</button>
+        </div>
+        <div class="div2">
+          <button mat-raised-button class="me-8 mb-8" color="warn" (click)="hideForm()">Cancelar</button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!--TABLA DE LIBROS -->
+<mat-card class="w-100 overview">
+  <mat-card-content>
+    <h4 class="mb-56">Inventario</h4>
+
+    <div class="m-b-20">
+      <button mat-raised-button class="me-8 mb-8" (click)="showForm()">Ingresar libro</button>
+    </div>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" id="table-to-paging" class="text-nowrap w-100 dark-table display">
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="cod_inv">
+          <th mat-header-cell *matHeaderCellDef> Código </th>
+          <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.cod_inv}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="isbn">
+          <th mat-header-cell *matHeaderCellDef> ISBN </th>
+          <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.isbn}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="titulo">
+          <th mat-header-cell *matHeaderCellDef> Título </th>
+          <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.titulo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="editorial">
+          <th mat-header-cell *matHeaderCellDef> Editorial </th>
+          <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.editorial}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="materia">
+          <th mat-header-cell *matHeaderCellDef> Materia </th>
+          <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.materia}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ano_edicion">
+          <th mat-header-cell *matHeaderCellDef> Año Edición </th>
+          <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.ano_edicion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ciudad">
+          <th mat-header-cell *matHeaderCellDef> Ciudad </th>
+          <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.ciudad}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dewey">
+          <th mat-header-cell *matHeaderCellDef> Dewey </th>
+          <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.dewey}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="editar">
+          <th mat-header-cell *matHeaderCellDef> Editar </th>
+          <td mat-cell class="fw-medium" *matCellDef="let element"> 
+            <button mat-icon-button color="primary" (click)="cargarFormularioLibro(element)">
+              <mat-icon fontIcon="edit">Editar</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

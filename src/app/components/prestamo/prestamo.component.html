@@ -1,0 +1,97 @@
+<!-- form to prestamos -->
+<mat-card id="frmCrearprestamo" class="w-100 overview hide-form">
+    <mat-card-content>
+  
+      <h4 class="mb-56">{{ formTitulo }}</h4>
+  
+      <form [formGroup]="formCrearPrestamo">
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Libro</mat-label>
+          <input matInput type="text" formControlName="nombre_libro" [matAutocomplete]="auto"  placeholder="ingresa el numero del ejemplar" />
+        </mat-form-field>
+
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor='let libroEncontrado of (librosObtenidosPorNombre$ | async)' [value]="libroEncontrado.titulo" (onSelectionChange)="getIdEjemplar(libroEncontrado.id_ejemplar)">
+            {{libroEncontrado.titulo}}
+          </mat-option>
+        </mat-autocomplete>
+  
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Dias de prestamo</mat-label>
+          <input matInput type="number" formControlName="dias_prestamo" placeholder="Ingresa dias de prestamo" />
+        </mat-form-field>
+
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Documento del usuario</mat-label>
+          <input matInput type="number" formControlName="id_usuario" placeholder="Ingresa el numero de documento del usuario" />
+        </mat-form-field>
+      
+        <div class="parent">
+          <div class="div1">
+            <button mat-raised-button class="me-8 mb-8 btnAgregar" id="btnAgregar" color="primary" (click)="crearprestamo()">Ingresar</button>
+            <button mat-raised-button class="me-8 mb-8 btnEditar" id="btnEditar" color="primary" (click)="editarPrestamo()">Editar</button>
+          </div>
+          <div class="div2">
+            <button mat-raised-button class="me-8 mb-8" color="warn" (click)="hideForm()">Cancelar</button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card class="w-100 overview">
+    <mat-card-content>
+      <h4 class="mb-56">Prestamos Registrados</h4>
+  
+      <div class="m-b-20">
+        <button mat-raised-button class="me-8 mb-8" (click)="showForm()">Ingresar prestamo</button>
+      </div>
+  
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" class="text-nowrap w-100 dark-table">
+
+          <ng-container matColumnDef="id_reserva">
+            <th mat-header-cell *matHeaderCellDef> Reserva </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.id_reserva}} </td>
+          </ng-container>   
+          
+          <ng-container matColumnDef="id_ejemplar">
+            <th mat-header-cell *matHeaderCellDef> Libro </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.id_ejemplar}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dias_prestamo">
+            <th mat-header-cell *matHeaderCellDef> Dias  de prestamo </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.dias_prestamo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fecha_prestamo">
+            <th mat-header-cell *matHeaderCellDef> Fecha de prestamo </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.fecha_prestamo}} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="fecha_devolucion">
+            <th mat-header-cell *matHeaderCellDef> Fecha de devolución </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.fecha_devolucion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.estado}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="entregar">
+            <th mat-header-cell *matHeaderCellDef> Entregar </th>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> 
+              <button (click)="getIdEjemplarDevolucion(element)"> Registrar Entrega </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
